@@ -115,7 +115,7 @@ window.godot_accel_x = 0;
 window.godot_accel_y = 0;
 window.godot_accel_z = 0;
 
-function registerMotionListener() {
+window.registerMotionListener = function() {
     if (typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission()
             .then(permissionState => {
@@ -131,7 +131,7 @@ function registerMotionListener() {
         window.addEventListener('devicemotion', handleDeviceMotion, true);
         console.log("DeviceMotion Listener registered (no permission required).");
     }
-}
+};
 
 function handleDeviceMotion(event) {
     if (event.acceleration) {
@@ -141,7 +141,7 @@ function handleDeviceMotion(event) {
     }
 }
 
-function godotVibrate(duration) {
+window.godotVibrate = function(duration) {
     // navigator.vibrate()가 브라우저에서 지원되는지 확인
     if (navigator.vibrate) {
         // 진동 실행 (단위: 밀리초)
@@ -152,7 +152,7 @@ function godotVibrate(duration) {
         console.log("Vibration API not supported or device is iOS.");
         return false;
     }
-}
+};
                 </script>
 		<script src="WhipDongChan.js"></script>
 		<script>
