@@ -110,10 +110,54 @@ body {
 			<progress id="status-progress"></progress>
 			<div id="status-notice"></div>
 		</div>
+		<script>
+window.godot_accel_x = 0;
+window.godot_accel_y = 0;
+window.godot_accel_z = 0;
 
+function registerMotionListener() {
+    // ... (권한 요청 및 이벤트 리스너 등록 로직 - 이전 답변과 동일)
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+                if (permissionState === 'granted') {
+                    window.addEventListener('devicemotion', handleDeviceMotion, true);
+                    console.log("DeviceMotion Listener registered.");
+                } else {
+                    console.error('DeviceMotion permission denied.');
+                }
+            })
+            .catch(console.error);
+    } else {
+        window.addEventListener('devicemotion', handleDeviceMotion, true);
+        console.log("DeviceMotion Listener registered (no permission required).");
+    }
+}
+
+function handleDeviceMotion(event) {
+    if (event.acceleration) {
+        window.godot_accel_x = event.acceleration.x || 0;
+        window.godot_accel_y = event.acceleration.y || 0;
+        window.godot_accel_z = event.acceleration.z || 0;
+    }
+}
+
+function godotVibrate(duration) {
+    // navigator.vibrate()가 브라우저에서 지원되는지 확인
+    if (navigator.vibrate) {
+        // 진동 실행 (단위: 밀리초)
+        navigator.vibrate(duration);
+        console.log(`Vibrating for ${duration}ms`);
+        return true;
+    } else {
+        console.log("Vibration API not supported or device is iOS.");
+        return false;
+    }
+}
+                </script>
 		<script src="WhipDongChan.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"WhipDongChan","experimentalVK":false,"fileSizes":{"WhipDongChan.pck":14961876,"WhipDongChan.wasm":38034280},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"WhipDongChan","experimentalVK":false,"fileSizes":{"WhipDongChan.pck":14962696,"WhipDongChan.wasm":38034280},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
