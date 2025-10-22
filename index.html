@@ -116,7 +116,6 @@ window.godot_accel_y = 0;
 window.godot_accel_z = 0;
 
 function registerMotionListener() {
-    // ... (권한 요청 및 이벤트 리스너 등록 로직 - 이전 답변과 동일)
     if (typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission()
             .then(permissionState => {
